@@ -17,8 +17,8 @@
  *
  */
 // #include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
+// #include <stdio.h>
+// #include <stdlib.h>
 #include "typedef.h"
 #include "course1.h"
 #include "platform.h"
@@ -26,11 +26,16 @@
 #include "data.h"
 #include "stats.h"
 
+
+
 int8_t test_data1() {
   uint8_t * ptr;
   int32_t num = -4096;
   uint32_t digits;
   int32_t value;
+  uint8_t hi;
+
+  // hi = false;
 
   PRINTF("\ntest_data1();\n");
   ptr = (uint8_t*) reserve_words( DATA_SET_SIZE_W );
@@ -40,12 +45,15 @@ int8_t test_data1() {
     return TEST_ERROR;
   }
 
-  digits = my_itoa( num, ptr, BASE_16);   
-  value = my_atoi( ptr, digits, BASE_16);
-  #ifdef VERBOSE
-  PRINTF("  Initial number: %d\n", num);
-  PRINTF("  Final Decimal number: %d\n", value);
-  #endif
+  // printf("num = %d\n", num);
+
+  digits = my_itoa( num, ptr, BASE_10);   
+  // digits = my_itoa( num, ptr, BASE_10);   
+  value = my_atoi( ptr, digits, BASE_10);
+  // #ifdef VERBOSE
+  // PRINTF("  Initial number: %d\n", num);
+  // PRINTF("  Final Decimal number: %d\n", value);
+  // #endif
   free_words( (uint32_t*)ptr );
 
   if ( value != num )
@@ -71,8 +79,8 @@ int8_t test_data2() {
     return TEST_ERROR;
   }
 
-  digits = my_itoa( num, ptr, BASE_10);
-  value = my_atoi( ptr, digits, BASE_10);
+  digits = my_itoa( num, ptr, BASE_16);
+  value = my_atoi( ptr, digits, BASE_16);
   #ifdef VERBOSE
   PRINTF("  Initial Decimal number: %d\n", num);
   PRINTF("  Final Decimal number: %d\n", value);

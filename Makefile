@@ -33,6 +33,8 @@ include sources.mk
 CPU = cortex-m4
 ARCH = armv7-m
 SPECS = nosys.specs
+# SPECS = rdimon.specs
+
 
 # Platform Specific Flags
 # PLATFORM = MSP432
@@ -74,8 +76,8 @@ run: clean course1.out
 course1.out: course1.o main.o stats.o memory.o data.o
 	@echo ""
 	@echo "Linking"
-# $(CC) -o course1.out stats.o course1.o memory.o data.o main.o $(CFLAGS) $(LDFLAGS)
-	$(CC) -o course1.out stats.o course1.o memory.o data.o main.o
+	$(CC) -o course1.out stats.o course1.o memory.o data.o main.o -lm
+# $(CC) -o course1.out stats.o course1.o memory.o data.o main.o $(CFLAGS) $(LDFLAGS) -lm
 
 main.o: src/main.c 
 	@echo ""
@@ -95,12 +97,13 @@ memory.o: src/memory.c
 data.o: src/data.c 
 	@echo ""
 	@echo "Compiling data.c"
-	$(CC) -D$(PLATFORM) -c src/data.c -o data.o -I$(INCLUDES) -I$(INCLUDES1) -I$(INCLUDES2) -I$(INCLUDES3)		
+	$(CC) -D$(PLATFORM) -c src/data.c -o data.o -I$(INCLUDES) -I$(INCLUDES1) -I$(INCLUDES2) -I$(INCLUDES3) -lm
 
 course1.o: src/course1.c
 	@echo ""
 	@echo "Compiling course1.c"
 	$(CC) -D$(PLATFORM) -c src/course1.c -o course1.o -I$(INCLUDES) -I$(INCLUDES1) -I$(INCLUDES2) -I$(INCLUDES3)
+# $(CC) -D$(PLATFORM) -c src/course1.c -o course1.o -I$(INCLUDES1)
 
 # .PHONY: build
 # build: all
